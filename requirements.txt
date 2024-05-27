@@ -1,8 +1,8 @@
-numpy
-opencv-python-headless
-torch
-torchvision
-transformers
-pillow
-uuid
-threading
+numpy==1.26.4
+opencv-python-headless==4.9.0.80
+torch==2.3.0
+torchvision==0.18.0
+transformers==4.41.1
+pillow==10.3.0
+uuid==1.30
+g
