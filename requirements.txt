@@ -1,5 +1,4 @@
-opencv-python
-streamlit
+cmake
 opencv-python-headless
 torch
 torchvision
