@@ -9,10 +9,12 @@ from PIL import Image, ImageDraw, ImageFont
 import streamlit as st
 import time
 import threading
+
 st.set_page_config(
     page_title="Icognito BeyTek",
     page_icon="🤐",
 )
+
 # Place your PyTorch model loading code here
 device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
 model = torchvision.models.mobilenet_v3_small()
@@ -59,7 +61,7 @@ if st.button("Attack Image"):
         perturbed_image = torchvision.transforms.ToPILImage()(perturbed_image.squeeze(0).cpu())
 
         if perturbed_image:
-            perturbed_image_np = np.array(perturbed_image) 
+            perturbed_image_np = np.array(perturbed_image)
             random_uuid = str(uuid.uuid1())[:6]
             output_filename = f"{random_uuid}-Atk.jpg"
             
@@ -68,19 +70,17 @@ if st.button("Attack Image"):
             draw = ImageDraw.Draw(watermark)
             font = ImageFont.load_default()  # Utilise la police par défaut de Pillow
             
-
-
-            # Par ceci
-            text_bbox = draw.textbbox((x, y), text, font=font)
-            text_width = text_bbox[2] - text_bbox[0]
-            text_height = text_bbox[3] - text_bbox[1]
-
-            # Placer le texte en bas à gauche
             text = "BeyTek"
             text_width, text_height = draw.textsize(text, font=font)
+            image_width, image_height = perturbed_image.size
+            
             x = 10  # Marge de gauche
             y = image_height - text_height - 10  # Marge du bas
+            
+            # Calculer la boîte englobante du texte
+            text_bbox = draw.textbbox((x, y), text, font=font)
 
+            # Placer le texte en bas à gauche
             draw.text((x, y), text, fill=(255, 255, 255, 128), font=font)
             
             perturbed_image = Image.alpha_composite(perturbed_image.convert("RGBA"), watermark)
@@ -113,3 +113,4 @@ st.title("Credits")
 
 st.write("Made by [BeyTek]")
 st.write("[Soutenir](https://ko-fi.com/beytek)")
+
