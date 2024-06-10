@@ -11,7 +11,7 @@ import time
 import threading
 
 st.set_page_config(
-    page_title="Icognito BeyTek",
+    page_title="Incognito BeyTek",
     page_icon="🤐",
 )
 
@@ -71,14 +71,14 @@ if st.button("Attack Image"):
             font = ImageFont.load_default()  # Utilise la police par défaut de Pillow
             
             text = "BeyTek"
-            text_width, text_height = draw.textsize(text, font=font)
+            # Calculer la boîte englobante du texte
+            text_bbox = draw.textbbox((0, 0), text, font=font)
+            text_width, text_height = text_bbox[2] - text_bbox[0], text_bbox[3] - text_bbox[1]
+            
             image_width, image_height = perturbed_image.size
             
             x = 10  # Marge de gauche
             y = image_height - text_height - 10  # Marge du bas
-            
-            # Calculer la boîte englobante du texte
-            text_bbox = draw.textbbox((x, y), text, font=font)
 
             # Placer le texte en bas à gauche
             draw.text((x, y), text, fill=(255, 255, 255, 128), font=font)
@@ -113,4 +113,3 @@ st.title("Credits")
 
 st.write("Made by [BeyTek]")
 st.write("[Soutenir](https://ko-fi.com/beytek)")
-
