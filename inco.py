@@ -19,7 +19,7 @@ st.title("Adversarial Attack By BeyTek")
 
 # UI Elements
 uploaded_image = st.file_uploader("Choose Image", type=["jpg", "jpeg", "png"])
-epsilon_slider = st.slider("Attack Intensity", min_value=2, max_value=40, value=6)
+epsilon_slider = st.slider("Attack Intensity", min_value=2, max_value=40, value=4)
 
 def pgd_attack(image_tensor, epsilon, alpha=ALPHA_DEFAULT, num_iter=NUM_ITER_DEFAULT):
     perturbed_image = image_tensor.clone().detach().requires_grad_(True)
